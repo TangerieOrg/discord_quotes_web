@@ -8,10 +8,8 @@ services:
       labels:
         xyz.tangerie.reverse_proxy.path: "/quotes"
         xyz.tangerie.reverse_proxy.port: "8000"
-    volumes:
-      - ./data:/app/data
-    # environment:
-    #   - BASE_URL=/quotes
+    environment:
+      - BASE_URL=/quotes
     networks:
       - nginx-proxy-overlay
 
