@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    image: ${IMAGE_NAME}:latest
+    deploy:
+      replicas: 1
+      labels:
+        xyz.tangerie.reverse_proxy.path: "/quotes"
+        xyz.tangerie.reverse_proxy.port: "8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - BASE_URL=/quotes
+    networks:
+      - nginx-proxy-overlay
+      
+networks:
+  nginx-proxy-overlay:
+    driver: overlay
+    external: true

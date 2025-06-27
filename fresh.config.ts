@@ -5,5 +5,8 @@ export default defineConfig({
   plugins: [tailwind()],
   router: {
     basePath: Deno.env.get("BASE_URL")
+  },
+  server: {
+    hostname: "0.0.0.0"
   }
 });

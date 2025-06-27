@@ -12,7 +12,7 @@ export default function QuoteDisplay({ quote, isRoot } : { quote: Quote, isRoot 
         <h1 class="mt-2 text-lg italic font-light">@{quote.author.name}</h1>
         <div class="flex flex-row justify-center mt-8 gap-x-4">
             <RefreshButton baseUrl={BASE_URL} isRoot={isRoot} />
-            <ShareButton id={quote.id} baseUrl={BASE_URL} />
+            { isRoot && <ShareButton quote={quote} baseUrl={BASE_URL} /> }
         </div>
     </>
 }

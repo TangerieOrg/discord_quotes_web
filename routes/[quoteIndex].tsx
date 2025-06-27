@@ -1,4 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { Head } from "$fresh/runtime.ts";
 import QuoteDisplay from "../components/QuoteDisplay.tsx";
 import { getQuote, Quote } from "../utils/quotes.ts";
 
@@ -13,7 +14,12 @@ export const handler : Handlers = {
 }
 
 export default function QuoteByIndex({ data: { quote } } : { data: { quote: Quote } }) {
-    return <div class="h-screen w-screen bg-gray-900 px-8 flex flex-col justify-center text-center">
-        <QuoteDisplay quote={quote} isRoot={false}/>
-    </div>
+    return <>
+        <Head>
+            <title>Quote by {quote.by}</title>
+        </Head>
+        <div class="h-screen w-screen bg-gray-900 px-8 flex flex-col justify-center text-center">
+            <QuoteDisplay quote={quote} isRoot={false}/>
+        </div>
+    </>
 }
