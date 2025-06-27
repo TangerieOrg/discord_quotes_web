@@ -6,10 +6,11 @@ services:
     deploy:
       replicas: 1
       labels:
-        xyz.tangerie.reverse_proxy.path: "/quotes"
+        # xyz.tangerie.reverse_proxy.path: "/quotes"
         xyz.tangerie.reverse_proxy.port: "8000"
-    environment:
-      - BASE_URL=/quotes
+        xyz.tangerie.reverse_proxy.server_name: "quotes.tangerie.xyz"
+    # environment:
+    #   - BASE_URL=/quotes
     networks:
       - nginx-proxy-overlay
 
