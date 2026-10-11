@@ -1,4 +1,4 @@
-name: Build, Push & Deploy
+name: Build & Deploy
 
 on:
   push:
@@ -6,20 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-      uses: TangerieOrg/Workflows/.github/workflows/docker-build-push.yml@main
-      with:
-        image_name: discord-quotes
-        registry_name: docker.tangerie.xyz
-        ref: main
-      secrets: inherit
-    
   deploy:
-    uses: TangerieOrg/Workflows/.github/workflows/docker-deploy.yml@main
-    needs: 
-      - build
+    uses: TangerieOrg/Workflows/.github/workflows/compose-deploy.yml@main
     with:
-      image_name: discord-quotes
-      registry_name: docker.tangerie.xyz
-      
+      project: discord-quotes
+      ref: main
     secrets: inherit

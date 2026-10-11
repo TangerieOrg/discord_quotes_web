@@ -1,20 +1,23 @@
-version: '3'
+name: discord-quotes
 
 services:
   web:
-    image: ${IMAGE_NAME}:latest
-    deploy:
-      replicas: 1
-      labels:
-        xyz.tangerie.reverse_proxy.path: "/"
-        xyz.tangerie.reverse_proxy.port: "8000"
-        xyz.tangerie.reverse_proxy.server_name: "quotes.tangerie.xyz"
+    build: .
+    image: discord-quotes-web:latest
+    pull_policy: never
+    restart: unless-stopped
     # environment:
     #   - BASE_URL=/quotes
     networks:
-      - nginx-proxy-overlay
+      - traefik-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-proxy"
+      - "traefik.http.routers.discord-quotes.rule=Host(`quotes.tangerie.xyz`)"
+      - "traefik.http.routers.discord-quotes.entrypoints=websecure"
+      - "traefik.http.routers.discord-quotes.priority=1000"
+      - "traefik.http.services.discord-quotes.loadbalancer.server.port=8000"
 
 networks:
-  nginx-proxy-overlay:
-    driver: overlay
+  traefik-proxy:
     external: true
